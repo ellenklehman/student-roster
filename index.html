@@ -5,6 +5,7 @@
   <title>Student App</title>
   <script src="lib/angular.js"></script>
   <script src="app.js"></script>
+  <script src="services/StudentsFactory.js"></script>
   <script src="controllers/StudentsController.js"></script>
   <script src="controllers/FieldTripsController.js"></script>
   <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -22,13 +23,13 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-6">
         <h2 ng-show="students.length && filtered.length">Student List</h2>
         <h2 ng-show="students.length && !filtered.length">No Matches</h2>
         <ul>
           <li ng-repeat="item in filtered = (students | filter:query)">
             <span ng-click="editing = true" ng-hide="editing">
-              {{item.name}} <a ng-click="deleteStudent(item)">Delete</a>
+              {{item.name}} <a ng-click="StudentsFactory.deleteStudent(item)">Delete</a>
             </span>
             <span class="form-group" ng-show="editing" ng-submit="editing = false">
               <form class="form-inline" role="form">
@@ -39,33 +40,32 @@
           </li>
         </ul>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-6">
         <h2>New Student</h2>
-        <form ng-submit="addStudent()" class="form-inline" role="form">
+        <form ng-submit="StudentsFactory.addStudent()" class="form-inline" role="form">
           <div class="form-group">
-            <input type="text" ng-model="studentName" class="form-control" id="student-name" placeholder="Enter name">
+            <input type="text" ng-model="StudentsFactory.studentName" class="form-control" id="student-name" placeholder="Enter name">
           </div>
           <button type="submit" class="btn btn-default">Submit</button>
         </form>
       </div>
-      <div class="row" ng-controller="FieldTripsCtrl">
-        <div class="col-md-12">
-          <h3>Permission Slips</h3>
-          <ul>
-            <li ng-repeat="item in students">
-              {{item.name}}
-            </li>
-          </ul>
-        </div>
-        <div class="col-md-4">
-          <h3>Add student to permissions list</h3>
-          <form ng-submit="permissionSlip()" class="form-inline" role="form">
-            <div class="form-group">
-              <input type="text" ng-model="studentName" class="form-control" id="student-name" placeholder="Enter name">
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-          </form>
-        </div>
+    </div>
+    <div class="row" ng-controller="FieldTripsCtrl">
+      <div class="col-md-6" ng-show="students.length">
+        <h3>Without Permission Slips</h3>
+        <ul>
+          <li ng-repeat="item in students">
+            {{item.name}} <a ng-click="permissionSlip(item)"> - received permission slip -</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-6" ng-show="studentsWithPermission.length">
+        <h3>With Permission Slips</h3>
+        <ul>
+          <li ng-repeat="item in studentsWithPermission">
+            {{item.name}}
+          </li>
+        </ul>
       </div>
     </div>
   </div>
