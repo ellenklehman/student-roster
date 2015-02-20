@@ -54,8 +54,8 @@
       <div class="col-md-6" ng-show="students.length">
         <h3>Without Permission Slips</h3>
         <ul>
-          <li ng-repeat="item in students">
-            {{item.name}} <a ng-click="permissionSlip(item)"> - received permission slip -</a>
+          <li ng-repeat="item in studentsWithoutPermission">
+            {{item.name}} <a ng-click="addStudentWithPermissionSlip(item)"> - received permission slip -</a>
           </li>
         </ul>
       </div>

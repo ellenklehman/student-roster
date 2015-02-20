@@ -1,8 +1,11 @@
 studentRoster.factory('StudentsFactory', function StudentsFactory() {
   var factory = {};
+  factory.studentsWithoutPermission = [];
   factory.students = [];
   factory.addStudent = function() {
-    factory.students.push({ name: factory.studentName });
+    var student = { name: factory.studentName, permissionSlip: false };
+    factory.students.push(student);
+    factory.studentsWithoutPermission.push(student);
     factory.studentName = null;
   };
 

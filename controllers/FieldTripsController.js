@@ -1,9 +1,8 @@
 studentRoster.controller('FieldTripsCtrl', function FieldTripsCtrl($scope, StudentsFactory) {
-  $scope.students = StudentsFactory.students;
   $scope.studentsWithPermission=[];
-  $scope.permissionSlip = function(student) {
-    var index = $scope.students.indexOf(student);
+  $scope.addStudentWithPermissionSlip = function(student) {
+    var index = StudentsFactory.studentsWithoutPermission.indexOf(student);
     $scope.studentsWithPermission.push(student);
-    $scope.students.splice(index, 1);
+    StudentsFactory.studentsWithoutPermission.splice(index, 1);
   };
 });
